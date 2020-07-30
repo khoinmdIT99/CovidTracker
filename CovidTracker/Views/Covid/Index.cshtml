@@ -1,0 +1,239 @@
+﻿@model IEnumerable<CovidTracker.Models.CovidModel>
+
+
+@{
+    //ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    CovidGlobal obj = ViewBag.GlobalData;
+}
+
+<h1>Index</h1>
+
+ @if (ViewBag.GlobalData != null)
+ {
+
+     <div class="col-md-12">
+
+         <div class="panel panel-card margin-b-30">
+             <div class="panel-heading panel-heading-custom">
+                 @*<h3 class="panel-title">DASHBOARD</h3>*@
+             </div>
+
+             <div class="panel-body">
+
+
+                 <div class="col-md-12">
+
+                     <div class="row">
+
+                         <div class="col-lg-3">
+                             <div class="widget-box clearfix" style="background-color: #cef3da">
+
+                                 <div>
+                                     <h3 style="color: green">TOTAL CASES</h3>
+                                     <h2>@obj.cases <i class="fa fa-2x fa-user pull-right" style="color: green"></i></h2>
+                                 </div>
+
+                             </div>
+                         </div>
+
+
+
+                         <div class="col-md-3">
+                             <div class="widget-box clearfix" style="background-color: #f6b7b7">
+                                 <div>
+                                     <h3 style="color: #6f0808">Total DEATHS</h3>
+                                     <h2>@obj.deaths <i class="fa  fa-user pull-right" style="color: red"></i></h2>
+                                 </div>
+                             </div>
+                         </div>
+
+
+
+                         <div class="col-md-3">
+                             <div class="widget-box clearfix" style="background-color: #f6b7b7">
+                                 <div>
+                                     <h3 style="color: #6f0808">Total RECOVERD</h3>
+                                     <h2>@obj.recovered <i class="fa  fa-user pull-right" style="color: red"></i></h2>
+                                 </div>
+                             </div>
+                         </div>
+
+
+
+                     </div>
+
+
+
+
+                 </div>
+             </div>
+         </div>
+
+     </div>
+ }
+  
+
+
+<table class="table table-sm table-striped table-bordered m-2" id="tbl">
+    <thead><tr><th>Country</th><th>Total Cases</th><th>Today Cases</th><th>Total Death   </th><th>Today Death    </th><th>Recoverd</th><th>Active Cases</tr></thead>
+    <tbody>
+    <div>
+        <select id="tbCountries">
+            <option value="">Select Country</option>
+
+            @{
+                foreach (var item in Model)
+                {
+                    <option value="@item.Country">@item.Country</option>
+                }
+            }
+
+        </select>
+
+
+    </div>
+    
+    <!-- Image loader -->
+    <div id='loader' style='display: none;'>
+
+        <img src="~/img/tenor.gif"  width='32px' height='32px'/>
+    </div>
+    <!-- Image loader -->
+
+
+
+
+    @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Country</td>
+                <td>@r.Cases</td>
+                <td>@r.TodayCases</td>
+                <td>@r.deaths</td>
+                <td>@r.TodayDeaths</td>
+                <td>@r.recovered</td>
+                <td>@r.active</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+
+        @*$(document).ready(function() {
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GlobalData", "COVID")',
+
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                beforeSend: function() {
+                    // Show image container
+                    $("#loader").show();
+                },
+
+                success: function(result) {
+
+                    if (result.data != null) {
+                        console.log(result.data);
+                    }
+
+                },
+
+                complete: function(data) {
+                    // Hide image container
+                    $("#loader").hide();
+                },
+
+
+                error: function(ob, errStr) {
+                    alert("An error occured.Please try after sometime.");
+                }
+            });
+
+
+        });*@
+
+
+
+        $("#tbCountries").change(function(event) {
+
+            var val1 = $('#tbCountries').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCoronaRecordByCountry", "Covid")',
+
+                contentType: 'Application/json',
+                data: { 'strCountryName': val1 },
+                dataType: "json",
+
+
+                beforeSend: function() {
+                    // Show image container
+                    $("#loader").show();
+                },
+
+
+                success: function(result) {
+
+                    if (result.data != null) {
+                        console.log(result.data);
+                        $("#tbl tbody").empty();
+                        $.each(result.data,
+                            function(key, val) {
+                                var tr = '<tr>' +
+                                    '<td>' +
+                                    val.country +
+                                    '</td>' +
+                                    '<td>' +
+                                    val.cases +
+                                    '</td>' +
+                                    '<td>' +
+                                    val.todayCases +
+                                    '</td>' +
+                                    '<td>' +
+                                    val.deaths +
+                                    '</td>' +
+                                    '<td>' +
+                                    val.todayDeaths +
+                                    '</td>' +
+                                    '<td>' +
+                                    val.recovered +
+                                    '</td>' +
+                                    '<td>' +
+                                    val.active +
+                                    '</td>' +
+                                    '</tr>';
+                                $("#tbl tbody").append(tr);
+
+                            });
+                    }
+
+                },
+
+                complete: function(data) {
+                    // Hide image container
+                    $("#loader").hide();
+                },
+
+
+                error: function(ob, errStr) {
+                    alert("An error occured.Please try after sometime.");
+                }
+            });
+
+        });
+
+
+    </script>
+}

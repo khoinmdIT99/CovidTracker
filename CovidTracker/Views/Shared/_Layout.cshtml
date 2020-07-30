@@ -1,0 +1,85 @@
+﻿@using System.Drawing
+@using Microsoft.AspNetCore.Mvc.RazorPages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CovidTracker</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+ 
+        <link rel="stylesheet" href="~/assets/plugins/bootstrap/css/bootstrap.min.css" >
+ 
+        <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+       
+        <link href="~/assets/plugins/themify/css/themify.css" rel="stylesheet" type="text/css">
+ 
+        <link href="~/assets/plugins/angular-tooltip/angular-tooltips.css" rel="stylesheet">
+
+    
+        <link href="~/assets/plugins/morris.js/morris.css" rel="stylesheet">
+
+      
+        <link href="~/assets/dist/css/animate.css" rel="stylesheet">
+
+ 
+        <link href="~/assets/dist/css/adminfier.css" rel="stylesheet">
+        <link href="~/assets/dist/css/adminfier-responsive.css" rel="stylesheet">
+
+    
+        <link rel="stylesheet" href="~/assets/dist/css/skins/default.css">
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - CovidTracker -  Sazzad
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+ 
+<!-- Bootstrap core JavaScript-->
+<script src="~/assets/plugins/jquery/jquery.min.js"></script>
+<script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+			
+<!-- Core plugin JavaScript-->
+<script src="~/assets/plugins/jquery-easing/jquery.easing.min.js"></script>
+			
+<!-- Slick Slider Js -->
+<script src="~/assets/plugins/slick-slider/slick.js"></script>
+			
+<!-- Slim Scroll -->
+<script src="~/assets/plugins/slim-scroll/jquery.slimscroll.min.js"></script>
+			
+<!-- Angular Tooltip -->
+<script src="~/assets/plugins/angular-tooltip/angular.js"></script>
+<script src="~/assets/plugins/angular-tooltip/angular-tooltips.js"></script>
+<script src="~/assets/plugins/angular-tooltip/index.js"></script>
+			
+<!-- Morris.js charts -->
+<script src="~/assets/plugins/raphael/raphael.min.js"></script>
+<script src="~/assets/plugins/morris.js/morris.min.js"></script>
+			
+<!-- Custom Chart JavaScript -->
+<script src="~/assets/dist/js/custom/dashboard/dashboard.js"></script>
+			
+<!-- Custom scripts for all pages -->
+<script src="~/assets/dist/js/adminfier.js"></script>
+<script src="~/assets/dist/js/jQuery.style.switcher.js"></script>
+
+@RenderSection("Scripts", required: false)
+</body>
+</html>
